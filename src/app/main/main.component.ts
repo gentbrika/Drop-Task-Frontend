@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -7,27 +9,34 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  baseUrl:any = 'https://infinite-earth-74563.herokuapp.com/api/';
+  user:any = [];
+  boards:any = [];
 
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-
-  constructor() { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+      this.getUser(); 
+      this.getBoards();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
+  getUser(){
+    const headers = { 'Authorization': 'Bearer 5|H8r523xWLTOgM6Cd0bOGaa12ciY1xAOUM9aS3PHC'}
+    this.http.get<any>(this.baseUrl + 'user', {headers}).subscribe(res => {
+      this.user = res;
+    })  
+  }
+
+  getBoards(){
+    const headers = { 'Authorization': 'Bearer 5|H8r523xWLTOgM6Cd0bOGaa12ciY1xAOUM9aS3PHC'}
+    this.http.get<any>(this.baseUrl + 'boards', {headers}).subscribe(res => {
+      this.boards = res.data;
+    })
+  }
+
+  goToBoard(bd:any){
+   console.log(bd);  
+   this.router.navigate(['board/' + bd])
   }
 
 }
