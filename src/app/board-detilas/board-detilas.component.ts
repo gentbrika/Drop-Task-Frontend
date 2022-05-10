@@ -12,10 +12,11 @@ import { HttpClient } from '@angular/common/http';
 export class BoardDetilasComponent implements OnInit {
   baseUrl:any = 'https://infinite-earth-74563.herokuapp.com/api/';
   id:any = '';
+  data:any = [];
+
   todo:any = [];
   done:any = [];
-  inProgress:any = [];
-  // data:any = [];
+  review:any = [];
 
   constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) { }
 
@@ -27,30 +28,53 @@ export class BoardDetilasComponent implements OnInit {
   }
 
   getBoardById(){
-    const headers = { 'Authorization': 'Bearer 5|H8r523xWLTOgM6Cd0bOGaa12ciY1xAOUM9aS3PHC'}
+    const headers = { 'Authorization': 'Bearer 5|2uK7pv2okwxfi3wslMHFI4ZVIc9dzrrooDlBk57r'}
     this.http.get<any>(this.baseUrl + `listings?board_id=${this.id}`, {headers}).subscribe(res => {
+      console.log(res[0].cards);
+      
       this.todo = res[0].cards;
       this.done = res[1].cards;
-      this.inProgress = res[2].cards;
+      this.review = res[2].cards;
+      this.data = res;
+    })
+  }
+ 
+  // drop(event: CdkDragDrop<any[]>) {
+  drop(event: any, status:any) {
+    
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+
+
+    let cardId = event.container.data[event.currentIndex].id;
+    
+
+    let id = event.container.id;
+    id = id.split('-').slice(-1)[0];
+    let previousId = event.previousContainer.id;
+    previousId = previousId.split('-').slice(-1)[0];
+
+    const formData = new FormData();
+    formData.append('current_index', event.currentIndex);
+    formData.append('current_listing_index', id);
+    formData.append('previous_listing_index', previousId);
+
+
+
+    const headers = { 'Authorization': 'Bearer 5|2uK7pv2okwxfi3wslMHFI4ZVIc9dzrrooDlBk57r'}
+    this.http.post<any>(this.baseUrl + `cards/${cardId}/move`, formData, {headers}).subscribe(res => {
+      console.log(res);
+      this.getBoardById();
     })
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(event);
-      
-    } else {
-      console.log(event);
-
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-  }
+  
 
 
 }
