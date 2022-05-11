@@ -52,13 +52,13 @@
             </div>
         </div> -->
 
-        <div class="col-md-3" *ngFor="let week of weeks">
+        <div class="col-md-3" *ngFor="let item of data">
             <div class="drag-container">
-              <div class="section-heading">Week {{week.id}}</div>
+              <div class="section-heading">{{item.type}}</div>
       
-              <div cdkDropList id="{{week.id}}" [cdkDropListData]="week.weeklist"
+              <div cdkDropList id="{{item.id}}" [cdkDropListData]="item.cards"
                 [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
-                <div class="item-box" *ngFor="let weekItem of week.weeklist" cdkDrag>Week {{week.id}} {{weekItem}}</div>
+                <div class="item-box" *ngFor="let card of item.cards" cdkDrag>{{card.title}}</div>
               </div>
             </div>
           </div>
