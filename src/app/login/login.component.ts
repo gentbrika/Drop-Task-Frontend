@@ -11,8 +11,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
   baseUrl:any = 'https://infinite-earth-74563.herokuapp.com/api/';
-
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient) { }
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -22,24 +20,14 @@ export class LoginComponent implements OnInit {
       Validators.minLength(6),
     ]),
   })
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient) { }
+
   
   ngOnInit(): void {
-    // this.activatedRoute.queryParams.subscribe(params => {
-    //   let token = params['token'];
-    //   console.log(token);
-
-    //   if(token){
-    //     localStorage.setItem('token', token)
-    //     console.log('redirect');
-    //     this.router.navigate(['main'])
-    //   }
-    //   else{
-    //     this.router.navigate(['login'])
-    //   }
-    // });
-    if(localStorage.getItem('token')){
-      this.router.navigate(['/main'])
-    }
+    // if(localStorage.getItem('token')){
+    //   this.router.navigate(['/main'])
+    // }
   }
 
   onSubmit(){
