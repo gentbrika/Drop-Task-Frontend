@@ -17,6 +17,8 @@ export class BoardDetilasComponent implements OnInit {
   todo:any = [];
   done:any = [];
   review:any = [];
+  addNewTodo:any = false;
+  newTask:any = '';
 
   constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) { }
 
@@ -28,8 +30,8 @@ export class BoardDetilasComponent implements OnInit {
   }
 
   getBoardById(){
-    const headers = { 'Authorization': 'Bearer 5|2uK7pv2okwxfi3wslMHFI4ZVIc9dzrrooDlBk57r'}
-    this.http.get<any>(this.baseUrl + `listings?board_id=${this.id}`, {headers}).subscribe(res => {
+    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
+    this.http.get<any>(this.baseUrl + `listings?board_id=${this.id}`).subscribe(res => {
       console.log(res[0].cards);
       
       this.todo = res[0].cards;
@@ -67,8 +69,24 @@ export class BoardDetilasComponent implements OnInit {
 
 
 
-    const headers = { 'Authorization': 'Bearer 5|2uK7pv2okwxfi3wslMHFI4ZVIc9dzrrooDlBk57r'}
-    this.http.post<any>(this.baseUrl + `cards/${cardId}/move`, formData, {headers}).subscribe(res => {
+    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
+    this.http.post<any>(this.baseUrl + `cards/${cardId}/move`, formData).subscribe(res => {
+      console.log(res);
+      this.getBoardById();
+    })
+  }
+
+  addNew(){
+    this.addNewTodo = true;
+  }
+
+  submitTask(listId:any){
+    const formData = new FormData();
+    formData.append('title', this.newTask);
+    formData.append('listing_id', listId);
+
+    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
+    this.http.post<any>(this.baseUrl + 'cards', formData).subscribe(res => {
       console.log(res);
       this.getBoardById();
     })

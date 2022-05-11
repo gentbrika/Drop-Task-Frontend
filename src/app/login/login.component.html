@@ -1,3 +1,23 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="content">
+        <div class="form">
+            <p>
+                <label for="lastname">Email </label><br>
+                <input type="text" formControlName="email">
+            </p>
+            <p>
+                <label for="lastname">Password </label><br>
+                <input type="password" formControlName="password">
+            </p>
+        </div>
+        <div class="buttons">
+            <button routerLink="/register" class="register">Register</button>
+            <button type="submit" [disabled]="!loginForm.valid" class="submit">Submit</button>
+        </div>
+    </div>
+
+</form>
+
 <a href="https://infinite-earth-74563.herokuapp.com/auth/github/redirect">Login with github</a><br/>
 <a href="https://infinite-earth-74563.herokuapp.com/auth/facebook/redirect">Login with facebook</a><br/>
 <a href="https://infinite-earth-74563.herokuapp.com/auth/google/redirect">Login with google</a><br/>

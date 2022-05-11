@@ -21,15 +21,15 @@ export class MainComponent implements OnInit {
   }
 
   getUser(){
-    const headers = { 'Authorization': 'Bearer 2|TfKysc79cf3F0tgRWnJx5urX9p1XeO24yOmqL8rw'}
-    this.http.get<any>(this.baseUrl + 'user', {headers}).subscribe(res => {
+    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
+    this.http.get<any>(this.baseUrl + 'user').subscribe(res => {
       this.user = res;
     })  
   }
 
   getBoards(){
-    const headers = { 'Authorization': 'Bearer 2|TfKysc79cf3F0tgRWnJx5urX9p1XeO24yOmqL8rw'}
-    this.http.get<any>(this.baseUrl + 'boards', {headers}).subscribe(res => {
+    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
+    this.http.get<any>(this.baseUrl + 'boards').subscribe(res => {
       this.boards = res.data;
     })
   }
