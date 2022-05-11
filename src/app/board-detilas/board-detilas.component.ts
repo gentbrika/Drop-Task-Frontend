@@ -11,32 +11,67 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BoardDetilasComponent implements OnInit {
   baseUrl:any = 'https://infinite-earth-74563.herokuapp.com/api/';
-  id:any = '';
-  data:any = [];
+  // id:any = '';
+  // data:any = [];
 
   // todo:any = [];
   // done:any = [];
   // review:any = [];
-  addNewTodo:any = false;
-  newTask:any = '';
+  // addNewTodo:any = false;
+  // newTask:any = '';
 
   weeks:any = [];
   connectedTo:any = [];
 
   constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) {
-      this.data =[{"id":1,"type":"Todo","index":0,"board_id":1,"created_at":null,"updated_at":null,"cards":[{"id":5,"title":"This is a cool card","description":"This is an amazing description","index":0,"listing_id":1,"created_at":null,"updated_at":"2022-05-11T11:18:26.000000Z"},{"id":10,"title":"just a trest","description":null,"index":1,"listing_id":1,"created_at":"2022-05-10T14:38:01.000000Z","updated_at":"2022-05-11T11:18:26.000000Z"},{"id":12,"title":"testtesttesttest","description":null,"index":2,"listing_id":1,"created_at":"2022-05-11T07:25:50.000000Z","updated_at":"2022-05-11T11:18:26.000000Z"},{"id":11,"title":"aaeaeffefe","description":null,"index":3,"listing_id":1,"created_at":"2022-05-10T14:38:29.000000Z","updated_at":"2022-05-11T11:18:26.000000Z"}]},{"id":2,"type":"In progress","index":1,"board_id":1,"created_at":null,"updated_at":null,"cards":[{"id":6,"title":"This is an even cooler card","description":"This is an amazing description","index":0,"listing_id":2,"created_at":null,"updated_at":"2022-05-11T11:18:26.000000Z"},{"id":4,"title":"This is another card","description":"This is an amazing description","index":1,"listing_id":2,"created_at":null,"updated_at":"2022-05-11T11:18:26.000000Z"},{"id":3,"title":"This is my third card","description":"This is an amazing description","index":2,"listing_id":2,"created_at":null,"updated_at":"2022-05-11T11:18:26.000000Z"},{"id":9,"title":"This is sparta!","description":"This is madness","index":3,"listing_id":2,"created_at":null,"updated_at":"2022-05-11T11:18:26.000000Z"}]},{"id":3,"type":"Done","index":2,"board_id":1,"created_at":null,"updated_at":null,"cards":[{"id":7,"title":"This is the latest card","description":"This is an amazing description","index":0,"listing_id":3,"created_at":null,"updated_at":null},{"id":8,"title":"This is madness","description":"This is madness","index":1,"listing_id":3,"created_at":null,"updated_at":null},{"id":1,"title":"This is my first card","description":"This is an amazing description","index":2,"listing_id":3,"created_at":null,"updated_at":"2022-05-11T11:28:44.000000Z"},{"id":2,"title":"This is my second card","description":"This is anoyhrt amazing description","index":3,"listing_id":3,"created_at":null,"updated_at":"2022-05-11T11:28:44.000000Z"}]}];
-      for (let item of this.data) {
-        this.connectedTo.push(item.id);
-        console.log(this.connectedTo);
-        
+      this.weeks = [
+        {
+          id:'week-1',
+          weeklist:[
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5"
+          ]
+        },{
+          id:'week-2',
+          weeklist:[
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5"
+          ]
+        },{
+          id:'week-3',
+          weeklist:[
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5"
+          ]
+        },{
+          id:'week-4',
+          weeklist:[
+            "item 1",
+            "item 2",
+            "item 3",
+            "item 4",
+            "item 5"
+          ]
+        },
+      ];
+      for (let week of this.weeks) {
+        this.connectedTo.push(week.id);
       };
    }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(par => {
-      this.id = par['id'];
-    });
-    
+    // this.activatedRoute.params.subscribe(par => {
+    //   this.id = par['id'];
+    // });
     // this.getBoardById();
   }
 
