@@ -38,5 +38,10 @@ export class MainComponent implements OnInit {
    console.log(bd);  
    this.router.navigate(['board/' + bd])
   }
+  
+  logOut(){
+    localStorage.removeItem('token');
+    this.router.navigate(['login'])
+  }
 
 }

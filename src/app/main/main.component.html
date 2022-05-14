@@ -1,7 +1,12 @@
 <h2>{{user.name}}</h2>
+<button>Add New Board</button>
+<button (click)="logOut()">Log out</button>
 
-<div *ngFor="let board of boards">
-    <p>{{board.title}}</p>
-    <button (click)="goToBoard(board.id)">Test</button>
+
+<div class="boards">
+    <div *ngFor="let board of boards" class="board">
+        <p>{{board.title}}</p>
+        <button (click)="goToBoard(board.id)">Test</button>
+    </div>
 </div>
 
