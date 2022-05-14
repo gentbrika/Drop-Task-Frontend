@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +14,12 @@ export class MainComponent implements OnInit {
   user:any = [];
   boards:any = [];
 
+  addNewBoardForm = new FormGroup({
+    title: new FormControl('',[
+      Validators.required,
+    ]),
+  }); 
+
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
@@ -21,14 +28,12 @@ export class MainComponent implements OnInit {
   }
 
   getUser(){
-    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
     this.http.get<any>(this.baseUrl + 'user').subscribe(res => {
       this.user = res;
     })  
   }
 
   getBoards(){
-    // const headers = { 'Authorization': 'Bearer 6|PjhbgHkVuOigzlQOnZCPpQcIMqEyGRpqqFDGLkW5'}
     this.http.get<any>(this.baseUrl + 'boards').subscribe(res => {
       this.boards = res.data;
     })
@@ -44,4 +49,19 @@ export class MainComponent implements OnInit {
     this.router.navigate(['login'])
   }
 
+  addNewBoard(val:any){
+    this.http.post<any>(this.baseUrl + 'boards', val).subscribe(res => {
+      this.getBoards();
+    })
+  }
+
+  deleteBoard(id:any){
+    console.log(id);
+    this.http.delete<any>(this.baseUrl + 'boards/' + id).subscribe(res => {
+      this.getBoards();
+    })
+  }
+
 }
+
+

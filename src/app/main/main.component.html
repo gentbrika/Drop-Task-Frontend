@@ -1,12 +1,55 @@
-<h2>{{user.name}}</h2>
-<button>Add New Board</button>
-<button (click)="logOut()">Log out</button>
+<div class="user">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>people</mat-icon>
+            <span>{{user.name}}</span>
+        </button>
+        <button mat-menu-item (click)="logOut()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Log out</span>
+        </button>
+    </mat-menu>
+</div>
+
+<form [formGroup]="addNewBoardForm">
+    <input formControlName="title">
+    <button (click)="addNewBoard(addNewBoardForm.value)">Add New Board</button>
+</form>
 
 
 <div class="boards">
     <div *ngFor="let board of boards" class="board">
-        <p>{{board.title}}</p>
-        <button (click)="goToBoard(board.id)">Test</button>
+        <mat-card class="card" (click)="goToBoard(board.id)">
+            <div class="title">
+                <mat-card-title >{{board.title}}</mat-card-title>
+            </div>
+
+            <!-- DELETE BOARD -->
+            <!-- <div class="menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="deleteBoard(board.id)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </div> -->
+        </mat-card>
+    </div>
+    
+    <div>
+        <mat-card class="card">
+            <div class="title">
+                <mat-card-title [matMenuTriggerFor]="addNew" yPosition="above">Add New Board</mat-card-title>
+                <mat-menu #addNew="matMenu">
+                    <button mat-menu-item>Item 1</button>
+                  </mat-menu>
+            </div>
+        </mat-card>
     </div>
 </div>
-

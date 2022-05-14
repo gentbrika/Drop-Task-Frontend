@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './jwt.interceptor';
 import { RegisterComponent } from './register/register.component';
+import { MaterialModule } from './material/material.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { RegisterComponent } from './register/register.component';
     DragDropModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

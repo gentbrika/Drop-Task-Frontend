@@ -1,3 +1,28 @@
+::ng-deep body{
+    padding: 20px;
+}
 .boards{
     display: flex;
+}
+
+.card{
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-icon-button{
+    line-height: 0;
+    height: 40px;
+    margin-top: -40px;
+    width: auto;
+}
+
+.mat-card-title{
+    font-size: 18px;
+}
+
+.user{
+    float: right;
 }
