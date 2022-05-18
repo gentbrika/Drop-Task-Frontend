@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -13,6 +14,9 @@ export class MainComponent implements OnInit {
   baseUrl:any = 'https://infinite-earth-74563.herokuapp.com/api/';
   user:any = [];
   boards:any = [];
+  displayStyle = "none";
+
+
 
   addNewBoardForm = new FormGroup({
     title: new FormControl('',[
@@ -52,6 +56,7 @@ export class MainComponent implements OnInit {
   addNewBoard(val:any){
     this.http.post<any>(this.baseUrl + 'boards', val).subscribe(res => {
       this.getBoards();
+      this.displayStyle = "none";
     })
   }
 
@@ -60,6 +65,13 @@ export class MainComponent implements OnInit {
     this.http.delete<any>(this.baseUrl + 'boards/' + id).subscribe(res => {
       this.getBoards();
     })
+  }
+
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
   }
 
 }

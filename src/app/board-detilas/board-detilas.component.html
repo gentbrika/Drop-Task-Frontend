@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
-        <div class="container" cdkDropListGroup>
-            <div class="example-container" *ngFor="let list of data">
+        <div class="list-groups" cdkDropListGroup>
+            <div class="lisitings" *ngFor="let list of data">
                 <h2>{{list.type}}</h2>
 
                 <div cdkDropList id="{{list.index}}" [cdkDropListData]="list.cards" class="example-list"
@@ -9,11 +9,11 @@
                     <div *ngFor="let card of list.cards" class="example-box" cdkDrag
                         [class.item__moved]="card.originalProjectName !== list.projectName">
                         {{card.title}}
-                        <button (click)="deleteListing(card.id)">Delete</button>
+                        <mat-icon class="delete" (click)="deleteListing(card.id)">close</mat-icon>
                     </div>
                 </div>
                 <div class="add-new" (click)="addNew(list.index)" *ngIf="!addNewTodo">Add New</div>
-                <div *ngIf="addNewTodo">
+                <div *ngIf="addNewTodo" [id]=list.index>
                     <input type="text" [(ngModel)]="newTask">
                     <button (click)="submitTask(list.id)">Add</button>
                 </div>

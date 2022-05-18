@@ -1,22 +1,31 @@
 ::ng-deep body{
     padding: 20px;
 }
-.boards{
-    display: flex;
-}
 
 .card{
     width: 200px;
     height: 100px;
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
+    .title{
+        cursor: pointer;
+    }
+    .mat-menu-item .mat-icon {
+        position: absolute;
+        top: 0;
+        right: -18px;
+    }
 }
 
 .mat-icon-button{
     line-height: 0;
     height: 40px;
     margin-top: -40px;
+    position: absolute;
     width: auto;
+    right: 20px;
+    top: 50px;
 }
 
 .mat-card-title{
@@ -25,4 +34,33 @@
 
 .user{
     float: right;
+}
+
+.all-boards{
+    height: 100%;
+    overflow-y: scroll;
+    
+    .boards{
+        display: flex;
+    }
+
+    .board{
+        margin-left: 10px;
+        margin-right: 10px;
+        .menu{
+            height: 30px !important;
+
+            .mat-menu-item{
+                height: 100%;
+            }
+        }
+    }
+}
+
+.modal{
+    background: #0000008f;
+}
+
+.card.last{
+    cursor: pointer;
 }

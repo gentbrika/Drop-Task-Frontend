@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
@@ -35,5 +34,20 @@ $drag-drop-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+// html, body { height: 100%;   max-width: 100%; overflow-x: hidden;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body{
+  background: url('https://trello-backgrounds.s3.amazonaws.com/SharedBackground/1080x1920/6a8bb2e7c44b744defdaa3e6893c4bb6/photo-1652353292901-c9b06631b231.jpg'); 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  max-width: 100%;
+  height: 100%;
+}
+
+// html, body {
+
+// }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

@@ -35,7 +35,7 @@ import { MaterialModule } from './material/material.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
