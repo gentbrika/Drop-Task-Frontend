@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
     // if(localStorage.getItem('token')){
     //   this.router.navigate(['/main'])
     // }
+    let token = localStorage.getItem('token')
+    if(token){
+      this.router.navigate(['/main']);
+    }
   }
 
   onSubmit(){

@@ -15,10 +15,10 @@ export class AppComponent {
   ngOnInit(): void {
     let token = localStorage.getItem('token')
     if(token){
-      this.router.navigate(['/main']);
+      // this.router.navigate(['/main']);
     }
     else{
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']);
     }
   }
 }

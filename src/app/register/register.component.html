@@ -19,9 +19,9 @@
             </p>
         </div>
         <div class="buttons">
-            <button routerLink="/login" class="login">Login</button>
-            <button type="submit" [disabled]="!registerForm.valid" class="submit">Submit</button>
+            <button class="register" [disabled]="!registerForm.valid">Register</button>
         </div>
+        <p class="create">You already have an account? <span routerLink="/login">Login</span></p>
     </div>
 
 </form>
