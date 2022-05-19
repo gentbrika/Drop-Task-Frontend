@@ -3,6 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-board-detilas',
@@ -16,6 +17,7 @@ export class BoardDetilasComponent implements OnInit {
   addNewTodo:any = false;
   newTask:any = '';
   projectLists: any = [];
+  showAddNewListForm:any = false;
 
 
   constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) {}
@@ -26,6 +28,12 @@ export class BoardDetilasComponent implements OnInit {
     });    
     this.getBoardById();
   }
+
+  addNewListForm = new FormGroup({
+    type: new FormControl('',[
+      Validators.required,
+    ]),
+  });
 
 
   drop(event: any) {
@@ -94,6 +102,32 @@ export class BoardDetilasComponent implements OnInit {
   deleteListing(id:any){
     console.log(id);
     this.http.delete<any>(this.baseUrl + 'cards/' + id).subscribe(res => {
+      this.getBoardById();
+    })
+  }
+
+  openAddNewList(){
+    this.showAddNewListForm = true;
+  }
+
+  closeAddNewList(){
+    this.showAddNewListForm = false;
+  }
+
+  addNewList(val:any){
+    const formData = new FormData();
+    formData.append('board_id', this.id);
+    formData.append('type', val.type);
+
+    this.http.post<any>(this.baseUrl + 'listings', formData).subscribe(res => {
+      this.getBoardById();
+      this.showAddNewListForm = false;
+      this.addNewListForm.reset();
+    })
+  }
+
+  deleteListingCard(id:any){
+    this.http.delete<any>(this.baseUrl + 'listings/' + id).subscribe(res => {
       this.getBoardById();
     })
   }

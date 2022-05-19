@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
   register(){
     this.http.post<any>(this.baseUrl + 'register', this.registerForm.value).subscribe(res => {
-      console.log(res);
+      this.router.navigate(['/login']);
     })
   }
 

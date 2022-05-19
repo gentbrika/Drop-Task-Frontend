@@ -15,6 +15,7 @@ export class MainComponent implements OnInit {
   user:any = [];
   boards:any = [];
   displayStyle = "none";
+  boardId:any = '';
 
 
 
@@ -44,7 +45,7 @@ export class MainComponent implements OnInit {
   }
 
   goToBoard(bd:any){
-   console.log(bd);  
+   this.boardId = bd;
    this.router.navigate(['board/' + bd])
   }
   
@@ -57,6 +58,7 @@ export class MainComponent implements OnInit {
     this.http.post<any>(this.baseUrl + 'boards', val).subscribe(res => {
       this.getBoards();
       this.displayStyle = "none";
+      this.addNewBoardForm.reset();
     })
   }
 
@@ -72,6 +74,8 @@ export class MainComponent implements OnInit {
   }
   closePopup() {
     this.displayStyle = "none";
+    this.addNewBoardForm.value.title = '';
+    this.addNewBoardForm.reset();
   }
 
 }

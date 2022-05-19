@@ -64,3 +64,26 @@
 .card.last{
     cursor: pointer;
 }
+
+.btn-success {
+    color: #fff;
+    background-color: #9381FF;
+    border-color: #9381FF;
+}
+
+.btn-danger {
+    background-color: transparent;
+    border-color: transparent;
+    color: #000;
+}
+
+.board-title{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+}

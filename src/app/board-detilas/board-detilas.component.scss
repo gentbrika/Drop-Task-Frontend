@@ -1,12 +1,10 @@
 .lisitings{
-    width: 270px;
-    // max-width: 100%;
+    min-width: 270px;
     margin: 0 25px 25px 0;
-    display: inline-block;
-    vertical-align: top;
     background-color: #ebecf0;
     border-radius: 3px;
     padding: 7px;
+    height: -moz-fit-content;
     height: fit-content;
 
     h2{
@@ -130,10 +128,11 @@
   }
   
   .list-groups{
-    justify-content: center;
     padding-top: 40px;
-    display: inline-flex;
+    display: flex;
+    flex-wrap: nowrap;
     overflow-y: scroll;
+    height: 100vh;
   }
 
   .delete:hover {
@@ -146,7 +145,7 @@
   }
 
   .mat-icon{
-    display: none;
+    // display: none;
     font-size: 20px;
     height: auto;
     width: auto;
@@ -155,6 +154,64 @@
   .example-box:hover .mat-icon{
     display: block;
     transition: 1s;
+  }
+
+  .top-part{
+    display: flex;
+
+    mat-icon{
+      cursor: pointer;
+    }
+  }
+  
+  .bottom-part{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    mat-icon{
+      cursor: pointer;
+    }
+  }
+
+  .add-list{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .add-new-list{
+    background-color: #0079bf;
+    border: none;
+    box-shadow: none;
+    color: #fff;
+    border-radius: 3px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .menu-drop{
+    width: 25px;
+    height: 25px;
+    min-width: auto;
+  }
+
+  .tasks mat-icon{
+    opacity: 0;
+    transition: 0.1s !important;
+  }
+  .tasks:hover mat-icon{
+    opacity: 1;
+  }
+
+  .lisitings:last-child{
+    background: #ffffff3d;
+    color: #fff;
 
   }
 
