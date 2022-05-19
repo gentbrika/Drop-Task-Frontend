@@ -4,7 +4,11 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-board-detilas',
   templateUrl: './board-detilas.component.html',
@@ -19,8 +23,10 @@ export class BoardDetilasComponent implements OnInit {
   projectLists: any = [];
   showAddNewListForm:any = false;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) {}
+  constructor(private activatedRoute: ActivatedRoute, private http: HttpClient, private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(par => {
@@ -34,7 +40,6 @@ export class BoardDetilasComponent implements OnInit {
       Validators.required,
     ]),
   });
-
 
   drop(event: any) {
     if (event.previousContainer === event.container) {
@@ -53,7 +58,6 @@ export class BoardDetilasComponent implements OnInit {
     }
 
     let cardId = event.container.data[event.currentIndex].id;
-    
 
     let id = event.container.id;
     console.log(id);
@@ -62,14 +66,11 @@ export class BoardDetilasComponent implements OnInit {
     let previousId = event.previousContainer.id;
     previousId = previousId.split('-').slice(-1)[0];
     console.log(event);
-    
 
     const formData = new FormData();
     formData.append('current_index', event.currentIndex);
     formData.append('current_listing_index', id);
     formData.append('previous_listing_index', previousId);
-
-
 
     this.http.post<any>(this.baseUrl + `cards/${cardId}/move`, formData).subscribe(res => {
       this.getBoardById();
@@ -80,9 +81,16 @@ export class BoardDetilasComponent implements OnInit {
     this.http.get<any>(this.baseUrl + `listings?board_id=${this.id}`).subscribe(res => {
       this.data = res;
       console.log(this.data);
+    }, error => {
+      this._snackBar.open(error.error.errors.board_id[0], 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+      setTimeout(() => {
+        this._snackBar.dismiss();
+      }, 5000);
     })
   }
-
 
   addNew(li:any){
     this.addNewTodo = true;
@@ -98,6 +106,14 @@ export class BoardDetilasComponent implements OnInit {
       this.getBoardById();
       this.addNewTodo = false;
       this.newTask = '';
+    }, error => {      
+      this._snackBar.open(error.error.errors.title[0], 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+      setTimeout(() => {
+        this._snackBar.dismiss();
+      }, 5000);
     })
   }
 
@@ -125,6 +141,14 @@ export class BoardDetilasComponent implements OnInit {
       this.getBoardById();
       this.showAddNewListForm = false;
       this.addNewListForm.reset();
+    }, error => {      
+      this._snackBar.open(error.error.errors.type[0], 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+      setTimeout(() => {
+        this._snackBar.dismiss();
+      }, 5000);
     })
   }
 
@@ -133,5 +157,4 @@ export class BoardDetilasComponent implements OnInit {
       this.getBoardById();
     })
   }
-
 }

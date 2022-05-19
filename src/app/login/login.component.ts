@@ -3,6 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import {Router} from "@angular/router"
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +26,9 @@ export class LoginComponent implements OnInit {
     ]),
   })
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http: HttpClient,  private _snackBar: MatSnackBar) { }
 
   
   ngOnInit(): void {
@@ -43,6 +50,16 @@ export class LoginComponent implements OnInit {
       console.log(res);
       localStorage.setItem('token', res.token)
       this.router.navigate(['/main'])
+    }, error => {
+      console.log(error.error.error);
+      
+      this._snackBar.open(error.error.error, 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+      setTimeout(() => {
+        this._snackBar.dismiss();
+      }, 5000);
     })
   }
 

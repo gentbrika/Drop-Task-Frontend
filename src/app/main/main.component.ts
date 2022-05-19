@@ -3,7 +3,11 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main',
@@ -17,15 +21,17 @@ export class MainComponent implements OnInit {
   displayStyle = "none";
   boardId:any = '';
 
-
-
   addNewBoardForm = new FormGroup({
     title: new FormControl('',[
       Validators.required,
     ]),
   }); 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+
+  constructor(private http: HttpClient, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
       this.getUser(); 
@@ -59,6 +65,14 @@ export class MainComponent implements OnInit {
       this.getBoards();
       this.displayStyle = "none";
       this.addNewBoardForm.reset();
+    }, error => {
+      this._snackBar.open(error.error.errors.title[0], 'X', {
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+      setTimeout(() => {
+        this._snackBar.dismiss();
+      }, 5000);
     })
   }
 
@@ -77,7 +91,6 @@ export class MainComponent implements OnInit {
     this.addNewBoardForm.value.title = '';
     this.addNewBoardForm.reset();
   }
-
 }
 
 
