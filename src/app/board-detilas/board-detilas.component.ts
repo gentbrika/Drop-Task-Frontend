@@ -96,6 +96,8 @@ export class BoardDetilasComponent implements OnInit {
 
     this.http.post<any>(this.baseUrl + 'cards', formData).subscribe(res => {
       this.getBoardById();
+      this.addNewTodo = false;
+      this.newTask = '';
     })
   }
 

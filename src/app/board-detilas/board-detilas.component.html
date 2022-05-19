@@ -22,10 +22,10 @@
                         <mat-icon class="delete" (click)="deleteListing(card.id)">close</mat-icon>
                     </div>
                 </div>
-                <div class="add-new" (click)="addNew(list.index)" *ngIf="!addNewTodo">Add New</div>
+                <div class="add-new" (click)="addNew(list.index)" *ngIf="!addNewTodo">Add a card</div>
                 <div *ngIf="addNewTodo" [id]=list.index>
-                    <input type="text" [(ngModel)]="newTask">
-                    <button (click)="submitTask(list.id)">Add</button>
+                    <input type="text" [(ngModel)]="newTask" placeholder="Enter a title for this card..." class="input-task">
+                    <button (click)="submitTask(list.id)" class="add-task">Add</button>
                 </div>
             </div>
 
