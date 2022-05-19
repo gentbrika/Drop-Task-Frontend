@@ -13,22 +13,9 @@ export class AppComponent {
   constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-  //   this.activatedRoute.queryParams.subscribe(params => {
-  //     let token = params['token'];
-  //     console.log(token);
-
-  //     if(token){
-  //       localStorage.setItem('token', token)
-  //       console.log('redirect');
-  //       this.router.navigate(['main'])
-  //     }
-  //     else{
-  //       this.router.navigate(['register'])
-  //     }
-  // });
     let token = localStorage.getItem('token')
     if(token){
-      // this.router.navigate(['/main'])
+      this.router.navigate(['/main']);
     }
     else{
       this.router.navigate(['/login'])

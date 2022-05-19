@@ -1,0 +1,71 @@
+::ng-deep body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('/assets/images/background.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content{
+    padding: 30px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
+}
+
+.form{
+    width: 250px;
+    input{
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        box-sizing: border-box;
+    }
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    
+    button{
+        width: 40%;
+    }
+    .submit{
+        border: none;
+        outline: none;
+        background: #9381FF;
+        color: #fff;
+        border-radius: 40px;
+        text-align: center;
+        cursor: pointer;
+        height: 40px;
+        margin-left: auto;
+        width: 100%;
+    }
+    .submit[disabled]{
+        opacity: 0.5;
+
+        &:hover{
+            cursor: not-allowed;
+        }
+    }
+}
+
+.create{
+    margin-top: 10px;
+    color: #000;
+    text-align: center;
+
+    span{
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
