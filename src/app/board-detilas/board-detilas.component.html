@@ -19,13 +19,14 @@
                     (cdkDropListDropped)="drop($event)">
                     <div *ngFor="let card of list.cards" class="example-box tasks" cdkDrag
                         [class.item__moved]="card.originalProjectName !== list.projectName">
-                        <p style="margin: 0; width: 100%;" (click)="openPopup(card.id)">{{card.title}}</p>
+                        <p (click)="openPopup(card.id)">{{card.title}}</p>
+                        <mat-icon class="delete" (click)="deleteListing(card.id)">close</mat-icon><br/>
                         <p>{{card.progress}}</p>
-                        <mat-icon class="delete" (click)="deleteListing(card.id)">close</mat-icon>
                     </div>
+                    
                 </div>
-                <div class="add-new" (click)="addNew(list.index)" *ngIf="!addNewTodo">Add a card</div>
-                <div *ngIf="addNewTodo" [id]=list.index>
+                <div class="add-new" (click)="addNew(list.index)" *ngIf="this.toggledList === -1">Add a card</div>
+                <div *ngIf="this.toggledList === list.index" [id]=list.index>
                     <input type="text" [(ngModel)]="newTask" placeholder="Enter a title for this card..."
                         class="input-task">
                     <button (click)="submitTask(list.id)" class="add-task">Add</button>
@@ -80,7 +81,7 @@
                 <button type="button" class="btn cls-modal" (click)="closePopup()">
                     <mat-icon>close</mat-icon>
                 </button>
-                <button class="btn btn-success" (click)="addChecklist(addNewChecklistForm.value)">Add an item</button>
+                <button class="btn btn-success" (click)="addChecklist(addNewChecklistForm.value)" [disabled]="addNewChecklistForm.invalid">Add an item</button>
             </div>
         </div>
     </div>

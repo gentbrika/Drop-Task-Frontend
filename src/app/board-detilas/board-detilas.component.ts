@@ -9,6 +9,7 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-board-detilas',
   templateUrl: './board-detilas.component.html',
@@ -16,9 +17,9 @@ import {
 })
 export class BoardDetilasComponent implements OnInit {
   baseUrl:any = 'https://infinite-earth-74563.herokuapp.com/api/';
-  id:any = '';
+  id:string = '';
   data:any = [];
-  addNewTodo:any = false;
+  toggledList:number = -1;
   newTask:any = '';
   projectLists: any = [];
   showAddNewListForm:any = false;
@@ -47,6 +48,8 @@ export class BoardDetilasComponent implements OnInit {
 
   addNewChecklistForm = new FormGroup({
     text: new FormControl('',[
+      Validators.required,
+      Validators.minLength(3)
     ]),
   });
 
@@ -99,7 +102,8 @@ export class BoardDetilasComponent implements OnInit {
   }
 
   addNew(li:any){
-    this.addNewTodo = true;
+    this.toggledList = li;
+    console.log(this.toggledList);
   }
 
   submitTask(listId:any){
@@ -109,7 +113,7 @@ export class BoardDetilasComponent implements OnInit {
 
     this.http.post<any>(this.baseUrl + 'cards', formData).subscribe(res => {
       this.getBoardById();
-      this.addNewTodo = false;
+      this.toggledList = -1;
       this.newTask = '';
     }, error => {      
       this._snackBar.open(error.error.errors.title[0], 'X', {
@@ -182,14 +186,14 @@ export class BoardDetilasComponent implements OnInit {
     formData.append('text', val.text);
     
     this.http.post<any>(this.baseUrl + 'checklist-items', formData).subscribe(res => {
-      console.log(res);
       this.addNewChecklistForm.reset();
+      this.http.get<any>(this.baseUrl + 'cards/' + this.cardId ).subscribe(res => {
+        this.cardData = res;
+      })
     })
   }
 
   toggleChecklist(event:any, id:any){
-    console.log(event.checked);
-    
     this.http.put<any>(this.baseUrl + 'checklist-items/' + id + '/toggle-completed', { completed: event.checked }).subscribe(res => {
       this.getBoardById();
     })
