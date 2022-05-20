@@ -22,6 +22,10 @@ export class BoardDetilasComponent implements OnInit {
   newTask:any = '';
   projectLists: any = [];
   showAddNewListForm:any = false;
+  displayStyle = "none";
+  cardId:any = '';
+  cardData:any = [];
+  checkLists:any = [];
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -38,6 +42,11 @@ export class BoardDetilasComponent implements OnInit {
   addNewListForm = new FormGroup({
     type: new FormControl('',[
       Validators.required,
+    ]),
+  });
+
+  addNewChecklistForm = new FormGroup({
+    text: new FormControl('',[
     ]),
   });
 
@@ -60,12 +69,10 @@ export class BoardDetilasComponent implements OnInit {
     let cardId = event.container.data[event.currentIndex].id;
 
     let id = event.container.id;
-    console.log(id);
     
     id = id.split('-').slice(-1)[0];
     let previousId = event.previousContainer.id;
     previousId = previousId.split('-').slice(-1)[0];
-    console.log(event);
 
     const formData = new FormData();
     formData.append('current_index', event.currentIndex);
@@ -80,7 +87,6 @@ export class BoardDetilasComponent implements OnInit {
   getBoardById(){
     this.http.get<any>(this.baseUrl + `listings?board_id=${this.id}`).subscribe(res => {
       this.data = res;
-      console.log(this.data);
     }, error => {
       this._snackBar.open(error.error.errors.board_id[0], 'X', {
         horizontalPosition: this.horizontalPosition,
@@ -97,7 +103,6 @@ export class BoardDetilasComponent implements OnInit {
   }
 
   submitTask(listId:any){
-    console.log(listId);
     const formData = new FormData();
     formData.append('title', this.newTask);
     formData.append('listing_id', listId);
@@ -118,7 +123,6 @@ export class BoardDetilasComponent implements OnInit {
   }
 
   deleteListing(id:any){
-    console.log(id);
     this.http.delete<any>(this.baseUrl + 'cards/' + id).subscribe(res => {
       this.getBoardById();
     })
@@ -154,6 +158,39 @@ export class BoardDetilasComponent implements OnInit {
 
   deleteListingCard(id:any){
     this.http.delete<any>(this.baseUrl + 'listings/' + id).subscribe(res => {
+      this.getBoardById();
+    })
+  }
+
+  openPopup(id:any) {
+    console.log(id);
+    
+    this.http.get<any>(this.baseUrl + 'cards/' + id).subscribe(res => {
+      this.cardData = res;
+    })
+    this.displayStyle = "block";
+    this.cardId = id;
+  }
+  closePopup() {
+    this.displayStyle = "none";
+    this.addNewChecklistForm.reset();
+  }
+
+  addChecklist(val:any){
+    const formData = new FormData();
+    formData.append('card_id', this.cardId);
+    formData.append('text', val.text);
+    
+    this.http.post<any>(this.baseUrl + 'checklist-items', formData).subscribe(res => {
+      console.log(res);
+      this.addNewChecklistForm.reset();
+    })
+  }
+
+  toggleChecklist(event:any, id:any){
+    console.log(event.checked);
+    
+    this.http.put<any>(this.baseUrl + 'checklist-items/' + id + '/toggle-completed', { completed: event.checked }).subscribe(res => {
       this.getBoardById();
     })
   }

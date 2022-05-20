@@ -77,7 +77,6 @@ export class MainComponent implements OnInit {
   }
 
   deleteBoard(id:any){
-    console.log(id);
     this.http.delete<any>(this.baseUrl + 'boards/' + id).subscribe(res => {
       this.getBoards();
     })

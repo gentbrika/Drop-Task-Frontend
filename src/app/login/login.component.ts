@@ -47,12 +47,9 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.http.post<any>(this.baseUrl + 'login', this.loginForm.value).subscribe(res => {
-      console.log(res);
       localStorage.setItem('token', res.token)
       this.router.navigate(['/main'])
     }, error => {
-      console.log(error.error.error);
-      
       this._snackBar.open(error.error.error, 'X', {
         horizontalPosition: this.horizontalPosition,
         verticalPosition: this.verticalPosition,

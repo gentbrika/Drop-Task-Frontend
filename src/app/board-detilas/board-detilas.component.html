@@ -4,13 +4,14 @@
             <div class="lisitings" *ngFor="let list of data">
                 <div class="top-part">
                     <h2>{{list.type}}</h2>
-                    <button mat-button [matMenuTriggerFor]="menu" class="menu-drop"><mat-icon>more_vert</mat-icon>
+                    <button mat-button [matMenuTriggerFor]="menu" class="menu-drop">
+                        <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="deleteListingCard(list.id)">
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
-                          </button>
+                        </button>
                     </mat-menu>
                 </div>
 
@@ -18,21 +19,18 @@
                     (cdkDropListDropped)="drop($event)">
                     <div *ngFor="let card of list.cards" class="example-box tasks" cdkDrag
                         [class.item__moved]="card.originalProjectName !== list.projectName">
-                        {{card.title}}
+                        <p style="margin: 0; width: 100%;" (click)="openPopup(card.id)">{{card.title}}</p>
+                        <p>{{card.progress}}</p>
                         <mat-icon class="delete" (click)="deleteListing(card.id)">close</mat-icon>
                     </div>
                 </div>
                 <div class="add-new" (click)="addNew(list.index)" *ngIf="!addNewTodo">Add a card</div>
                 <div *ngIf="addNewTodo" [id]=list.index>
-                    <input type="text" [(ngModel)]="newTask" placeholder="Enter a title for this card..." class="input-task">
+                    <input type="text" [(ngModel)]="newTask" placeholder="Enter a title for this card..."
+                        class="input-task">
                     <button (click)="submitTask(list.id)" class="add-task">Add</button>
                 </div>
             </div>
-
-
-
-
-
 
             <div class="lisitings">
                 <div class="top-part">
@@ -46,13 +44,44 @@
                 </div>
 
                 <div class="bottom-part" *ngIf="showAddNewListForm">
-                    <div class="add-new-list" (click)="addNewList(addNewListForm.value)">Add list</div>  
+                    <div class="add-new-list" (click)="addNewList(addNewListForm.value)">Add list</div>
                     <div>
                         <mat-icon (click)="closeAddNewList()">close</mat-icon>
-                    </div>  
-                </div>     
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2>{{cardData.title}}</h2>
+
+                <div class="check-lists">
+                    <div class="check-list" *ngFor="let data of cardData.checklist_items">
+                        <label>
+                            <mat-checkbox (change)="toggleChecklist($event, data.id)" [checked]="data.completed">{{data.text}}</mat-checkbox>
+                        </label>
+                    </div>
+                </div>
+
+                <form [formGroup]="addNewChecklistForm" class="card-form">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Add an item</mat-label>
+                        <textarea matInput formControlName="text"></textarea>
+                    </mat-form-field>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn cls-modal" (click)="closePopup()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <button class="btn btn-success" (click)="addChecklist(addNewChecklistForm.value)">Add an item</button>
+            </div>
         </div>
     </div>
 </div>
