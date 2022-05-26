@@ -1,27 +1,29 @@
-# DragDrop
+<div id="top"></div>
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/gentbrika/Drop-Task-Frontend">
+    <img src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/2017/png/iconmonstr-task-1.png&r=124&g=108&b=163" alt="Logo" width="80" height="80">
+  </a>
+  <h3 align="center">DropTask</h3>
+  <p align="center">
+    A kanban style task managment web-app
+    <br />
+    Built using Laravel and Angular
+    <br />
+    <a href="https://charming-pastelito-227126.netlify.app/"><strong>Try it online »</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.3.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Built With
+List of technologies and libraries used.
+* [Angular](https://angular.io/)
+* [Angular Material](https://material.angular.io/)
+## Features
+- [x] Ability to create, edit and delete boards, lists and cards
+- [x] Ability to create checklists
+- [x] Ability to drag and drop tasks into lists
+- [x] Social login with Facebook, Google and Github
+- [ ] Receive notifications when the user sets a due date for a card
