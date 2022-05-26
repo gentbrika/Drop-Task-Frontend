@@ -25,5 +25,4 @@ List of technologies and libraries used.
 - [x] Ability to create, edit and delete boards, lists and cards
 - [x] Ability to create checklists
 - [x] Ability to drag and drop tasks into lists
-- [x] Social login with Facebook, Google and Github
 - [ ] Receive notifications when the user sets a due date for a card
