@@ -9,7 +9,8 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
-import { ThisReceiver } from '@angular/compiler';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-board-detilas',
   templateUrl: './board-detilas.component.html',
